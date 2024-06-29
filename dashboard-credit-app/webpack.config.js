@@ -2,64 +2,62 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
 
-const config = (env, { mode }) => {
-    const isProduction = mode === "production";
+const deps = require("./package.json").dependencies;
 
-    return {
-        mode,
-        cache: false,
-        entry: path.join(__dirname, "src", "index.tsx"),
+console.log('deps["react"] :>> ', deps);
 
-        resolve: {
-            extensions: [".tsx", ".ts", ".js", ".jsx"],
-        },
+module.exports = {
+    cache: false,
+    entry: path.join(__dirname, "src", "index.tsx"),
 
-        output: {
-            filename: "credit.[hash].js",
-            path: path.resolve(__dirname, "dist"),
-        },
+    resolve: {
+        extensions: [".tsx", ".ts", ".js", ".jsx"],
+    },
 
-        module: {
-            rules: [
-                {
-                    test: /\.(ts|tsx|js|jsx)?$/,
-                    exclude: /node_modules/,
-                    use: "babel-loader",
-                },
-            ],
-        },
+    output: {
+        filename: "credit.[hash].js",
+        path: path.resolve(__dirname, "dist"),
+    },
 
-        plugins: [
-            new HtmlWebpackPlugin({
-                template: path.join(__dirname, "public", "index.html"),
-                cache: isProduction,
-            }),
-            new ModuleFederationPlugin({
-                name: "CreditApp",
-                filename: "remoteEntry.js",
-                exposes: {
-                    "./CreditGraph": "./src/credit-graph/CreditGraph",
-                },
-                shared: {
-                    "react-dom": {
-                        singleton: true,
-                        eager: true,
-                    },
-                    react: {
-                        singleton: true,
-                        eager: true,
-                    },
-                },
-            }),
+    module: {
+        rules: [
+            {
+                test: /\.(ts|tsx|js|jsx)?$/,
+                exclude: /node_modules/,
+                use: "babel-loader",
+            },
         ],
+    },
 
-        devServer: {
-            hot: true,
-            static: path.join(__dirname, "dist"),
-            port: 3002,
-            open: true,
-        },
-    };
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, "public", "index.html"),
+            cache: false,
+        }),
+        new ModuleFederationPlugin({
+            name: "CreditApp",
+            filename: "remoteEntry.js",
+            exposes: {
+                "./CreditGraph": "./src/credit-graph/CreditGraph",
+            },
+            shared: {
+                ...deps,
+                "react-dom": {
+                    singleton: true,
+                    requiredVersion: deps["react-dom"],
+                },
+                react: {
+                    singleton: true,
+                    requiredVersion: deps["react"],
+                },
+            },
+        }),
+    ],
+
+    devServer: {
+        hot: true,
+        static: path.join(__dirname, "dist"),
+        port: 3002,
+        open: true,
+    },
 };
-
-module.exports = config;
