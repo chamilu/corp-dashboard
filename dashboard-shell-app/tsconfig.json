@@ -19,7 +19,8 @@
         "resolveJsonModule": true,
         "isolatedModules": false,
         "noFallthroughCasesInSwitch": true,
-        "downlevelIteration": true
+        "downlevelIteration": true,
+        "noEmit": false
     },
     "include": ["src/"],
     "exclude": ["node_modules/", "dist/", "coverage/"]
