@@ -23,10 +23,9 @@ const stockGraphSlice = createSlice({
         builder
             .addCase(fetchStockGraphData.fulfilled, (state, { payload }) =>
                 produce(state, (draft) => {
-                    console.log("payload :>> ", payload);
                     const d = payload.data.map((n, i) => ({
                         y: n,
-                        x: i % 2 ? "01/25" : "",
+                        x: i % 2 ? "01/25" : "", // TODO: Set months
                     }));
 
                     draft.graphData = d;

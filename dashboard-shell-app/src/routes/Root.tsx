@@ -1,7 +1,7 @@
 import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 
-import React from "react";
+import React, { Suspense } from "react";
 import GridLayout from "react-grid-layout";
 
 const StockGraph = React.lazy(() => import("StockApp/StockGraph"));
@@ -32,10 +32,14 @@ const RootView = () => {
             containerPadding={[0, 0]}
         >
             <div key={"stock-g"} className="graphs">
-                <StockGraph />
+                <Suspense>
+                    <StockGraph />
+                </Suspense>
             </div>
             <div key={"credit-g"} className="graphs">
-                <CreditGraph />
+                <Suspense>
+                    <CreditGraph />
+                </Suspense>
             </div>
         </GridLayout>
     );

@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 const StockGraph = React.lazy(() => import("StockApp/StockGraph"));
 
 const StockView = () => {
     return (
         <div>
-            <StockGraph />
+            <Suspense>
+                <StockGraph />
+            </Suspense>
         </div>
     );
 };
