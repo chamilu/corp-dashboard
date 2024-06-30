@@ -1,0 +1,61 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+
+    // font-family: "Lato", sans-serif;
+    // font-style: normal;
+}
+
+.wrapper {
+    margin: 0 auto;
+    width: 1500px;
+
+    .header {
+        padding: 50px 25px 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        .title {
+            h3 {
+                margin-bottom: 0;
+            }
+        }
+        .search {}
+    }
+
+    .gridWrapper {
+        padding: 20px;
+        background-color: #f0f1f3;
+
+        .gridTitle {
+            h4 {
+                line-height: 18px;
+                .iconWrapper {
+                    margin-right: 5px;
+                    background-color: #d8def0;
+                    display: inline-block;
+                    padding: 10px;
+                    border-radius: 22px;
+                    width: 18px;
+                    height: 18px;
+                    text-align: center;
+                    .pIcon {
+                        color: #1525b3;
+                    }
+                }
+            }
+        }
+
+        .gridLayout {
+            margin-top: 5px;
+
+            .graphs {
+                border-radius: 5px;
+            }
+        }
+    }
+}
