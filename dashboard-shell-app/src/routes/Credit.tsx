@@ -1,11 +1,13 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 const CreditGraph = React.lazy(() => import("CreditApp/CreditGraph"));
 
 const CreditView = () => {
     return (
         <div>
-            <CreditGraph />
+            <Suspense>
+                <CreditGraph />
+            </Suspense>
         </div>
     );
 };
