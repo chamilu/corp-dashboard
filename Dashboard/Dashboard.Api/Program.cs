@@ -1,3 +1,5 @@
+using Dashboard.Api.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -6,22 +8,27 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowAnyMethod()));
 
+builder.Services.AddControllers();
+builder.Services.AddSingleton<IDashboardService, DashboardService>();
+
 var app = builder.Build();
 
 app.UseCors();
 
 app.MapGet("/greet", () => "Hello World!");
 
-app.MapGet("/stock", () =>
-{
-    return new Info("completed");
-});
+// app.MapGet("/stock", () =>
+// {
+//     return new Info("completed");
+// });
 
-app.MapGet("/credit", () =>
-{
-    return new Info("completed");
-});
+// app.MapGet("/credit", () =>
+// {
+//     return new Info("completed");
+// });
+
+app.MapControllers();
 
 app.Run();
 
-record Info(string status);
+// record Info(string status);
