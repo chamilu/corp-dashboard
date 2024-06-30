@@ -14,8 +14,8 @@ const CreditGraph = React.lazy(() => import("CreditApp/CreditGraph"));
 
 const App = () => {
     const layout = [
-        { i: "a", x: 0, y: 0, w: 1, h: 1 },
-        { i: "b", x: 1, y: 0, w: 1, h: 1 },
+        { i: "stock-g", x: 0, y: 0, w: 1, h: 1 },
+        { i: "credit-g", x: 1, y: 0, w: 1, h: 1 },
     ];
 
     return (
@@ -38,7 +38,7 @@ const App = () => {
                     <Title level={4}>
                         <div className="iconWrapper">
                             <LineChartOutlined className="pIcon" />
-                        </div>{" "}
+                        </div>
                         PERFORMANCE
                     </Title>
                 </div>
@@ -51,16 +51,18 @@ const App = () => {
                     width={1460}
                     maxRows={1}
                     compactType="horizontal"
+                    isResizable={true}
                     onLayoutChange={(layout) =>
+                        // TODO: Save layout data
                         console.log("savelayour", layout)
                     }
                     margin={[20, 20]}
                     containerPadding={[0, 0]}
                 >
-                    <div key={"a"} className="graphs">
+                    <div key={"stock-g"} className="graphs">
                         <StockGraph />
                     </div>
-                    <div key={"b"} className="graphs">
+                    <div key={"credit-g"} className="graphs">
                         <CreditGraph />
                     </div>
                 </GridLayout>
