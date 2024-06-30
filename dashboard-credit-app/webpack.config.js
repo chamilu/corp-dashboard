@@ -42,7 +42,7 @@ module.exports = {
             name: "CreditApp",
             filename: "remoteEntry.js",
             exposes: {
-                "./CreditGraph": "./src/credit-graph/CreditGraph",
+                "./CreditGraph": "./src/credit-graph",
             },
             shared: {
                 ...deps,

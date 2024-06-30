@@ -1,7 +1,11 @@
 import "./credit-graph.scss";
 import React, { ReactElement, useEffect, useState } from "react";
-import axios from "axios";
 import { Card, Radio, Flex, Typography } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchCreditGraphData } from "../app/slices/graphSlice";
+import { AppDispatch } from "../app/store";
+import { IState } from "../app/interfaces";
 
 const { Text } = Typography;
 
@@ -15,36 +19,26 @@ import {
 } from "recharts";
 
 const CreditGraph = (): ReactElement => {
+    /**
+     * Known warning issue with rechart
+     * https://github.com/recharts/recharts/issues/3615
+     */
     const [size, setSize] = useState("6M");
-    const [graphData, setGraphData] = useState<{ y: number; x: string }[]>([]);
-    // https://github.com/recharts/recharts/issues/3615
+
+    const dispatch = useDispatch<AppDispatch>();
+    const graphData = useSelector(
+        (state: IState) => state.creditGraph.graphData,
+    );
 
     const getCreditData = async (duration) => {
-        try {
-            const url = `http://localhost:5000/api/credit?duration=${duration}`;
-            const response = await axios.get(url, {
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                },
-            });
-            const creditData = response.data;
-
-            const d = creditData.data.map((n, i) => ({
-                y: n,
-                x: i % 2 ? "01/25" : "",
-            }));
-
-            setGraphData(d);
-        } catch (error) {
-            // api failed.
-        }
+        dispatch(fetchCreditGraphData({ duration }));
     };
 
     useEffect(() => {
         getCreditData("6M");
     }, []);
 
-    return (
+    return graphData && graphData.length > 0 ? (
         <div>
             <Card
                 title="Corporate Credit Performance"
@@ -135,6 +129,8 @@ const CreditGraph = (): ReactElement => {
                 </Flex>
             </Card>
         </div>
+    ) : (
+        <></>
     );
 };
 
