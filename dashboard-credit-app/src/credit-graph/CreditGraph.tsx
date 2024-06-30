@@ -19,30 +19,29 @@ const CreditGraph = (): ReactElement => {
     const [graphData, setGraphData] = useState<{ y: number; x: string }[]>([]);
     // https://github.com/recharts/recharts/issues/3615
 
-    useEffect(() => {
-        const getCreditData = async () => {
-            try {
-                const res = await axios.get("http://localhost:5000/credit", {
-                    headers: {
-                        "Access-Control-Allow-Origin": "*",
-                    },
-                });
-                console.log("creditData:", res.data);
-            } catch (error) {
-                // api failed.
-            }
-        };
+    const getCreditData = async (duration) => {
+        try {
+            const url = `http://localhost:5000/api/credit?duration=${duration}`;
+            const response = await axios.get(url, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                },
+            });
+            const creditData = response.data;
 
-        const d = [13, 13, 32, 34, 45, 36, 44, 34, 55, 44, 16, 34].map(
-            (n, i) => ({
+            const d = creditData.data.map((n, i) => ({
                 y: n,
                 x: i % 2 ? "01/25" : "",
-            }),
-        );
+            }));
 
-        setGraphData(d);
+            setGraphData(d);
+        } catch (error) {
+            // api failed.
+        }
+    };
 
-        // getCreditData();
+    useEffect(() => {
+        getCreditData("6M");
     }, []);
 
     return (
@@ -62,11 +61,8 @@ const CreditGraph = (): ReactElement => {
                         <Radio.Group
                             value={size}
                             onChange={(e) => {
-                                console.log(
-                                    "e.target.value :>> ",
-                                    e.target.value,
-                                );
                                 setSize(e.target.value);
+                                getCreditData(e.target.value);
                             }}
                         >
                             <Radio.Button value="6M">6M</Radio.Button>
@@ -130,7 +126,11 @@ const CreditGraph = (): ReactElement => {
                     </div>
                     <div className="graphInfo">
                         <Text>Weighted Bond MV Excess Returns</Text>
-                        <div className="value">456 BP</div>
+                        {graphData && graphData.length > 0 && (
+                            <div className="value">
+                                {graphData[graphData.length - 1].y} BP
+                            </div>
+                        )}
                     </div>
                 </Flex>
             </Card>
