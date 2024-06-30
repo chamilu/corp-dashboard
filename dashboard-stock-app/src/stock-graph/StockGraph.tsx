@@ -43,8 +43,6 @@ const StockGraph = (): ReactElement => {
             <Card
                 title="Stock Performance"
                 style={{
-                    width: 720,
-                    height: 410,
                     boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px",
                     paddingLeft: 0,
                 }}
