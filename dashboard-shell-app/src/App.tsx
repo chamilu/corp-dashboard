@@ -13,7 +13,7 @@ const { Search } = Input;
 // const ResponsiveGridLayout = WidthProvider(Responsive);
 
 // const StockGraph = React.lazy(() => import("StockApp/StockGraph"));
-// const CreditGraph = React.lazy(() => import("CreditApp/CreditGraph"));
+const CreditGraph = React.lazy(() => import("CreditApp/CreditGraph"));
 
 const App = () => {
     // return (
@@ -60,10 +60,11 @@ const App = () => {
                 </div>
                 <GridLayout
                     className="gridLayout"
+                    draggableCancel=".noDrag"
                     layout={layout}
                     cols={2}
-                    rowHeight={500}
-                    width={"1460"}
+                    rowHeight={410}
+                    width={1460}
                     maxRows={1}
                     compactType="horizontal"
                     onLayoutChange={(layout) =>
@@ -82,9 +83,8 @@ const App = () => {
                     <div
                         key={"b"}
                         className="graphs"
-                        style={{ backgroundColor: "#666" }}
                     >
-                        b
+                        <CreditGraph/>
                     </div>
                 </GridLayout>
             </div>

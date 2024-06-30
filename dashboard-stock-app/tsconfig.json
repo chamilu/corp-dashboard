@@ -20,7 +20,8 @@
         "isolatedModules": false,
         "noFallthroughCasesInSwitch": true,
         "downlevelIteration": true,
-        "noEmit": false
+        "noEmit": false,
+        "plugins": [{ "name": "typescript-plugin-css-modules" }]
     },
     "include": ["src/"],
     "exclude": ["node_modules/", "dist/", "coverage/"]
