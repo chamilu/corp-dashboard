@@ -5,17 +5,17 @@ namespace Dashboard.Api.Controllers
 {
     [Route("api")]
     [ApiController]
-    public class CreditController : Controller
+    public class StockController : Controller
     {
         private readonly IDashboardService dashboardService;
 
-        public CreditController(IDashboardService _dashboardService)
+        public StockController(IDashboardService _dashboardService)
         {
             dashboardService = _dashboardService;
         }
 
-        [HttpGet("credit")]
-        public IActionResult GetCredits([FromQuery] string duration)
+        [HttpGet("stock")]
+        public IActionResult GetStocks([FromQuery] string duration)
         {
             try
             {

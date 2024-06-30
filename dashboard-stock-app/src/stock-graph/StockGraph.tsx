@@ -119,10 +119,10 @@ const StockGraph = (): ReactElement => {
                         </AreaChart>
                     </div>
                     <div className="graphInfo">
-                        <Text>Weighted Bond MV Excess Returns</Text>
+                        <Text>Latest Price</Text>
                         {graphData && graphData.length > 0 && (
                             <div className="value">
-                                {graphData[graphData.length - 1].y} BP
+                                {graphData[graphData.length - 1].y} USD
                             </div>
                         )}
                     </div>
