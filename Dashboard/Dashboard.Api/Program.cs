@@ -17,18 +17,7 @@ app.UseCors();
 
 app.MapGet("/greet", () => "Hello World!");
 
-// app.MapGet("/stock", () =>
-// {
-//     return new Info("completed");
-// });
-
-// app.MapGet("/credit", () =>
-// {
-//     return new Info("completed");
-// });
 
 app.MapControllers();
 
 app.Run();
-
-// record Info(string status);
