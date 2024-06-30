@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 
-import CreditGraph from "./credit-graph/CreditGraph";
+import CreditGraph from "./credit-graph";
 
 const App = () => {
     return (
