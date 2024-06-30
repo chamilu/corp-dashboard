@@ -4,8 +4,6 @@ const { ModuleFederationPlugin } = require("webpack").container;
 
 const deps = require("./package.json").dependencies;
 
-console.log('deps["react"] :>> ', deps);
-
 module.exports = {
     cache: false,
     entry: path.join(__dirname, "src", "index.tsx"),
