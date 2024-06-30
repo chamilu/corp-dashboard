@@ -40,7 +40,7 @@ module.exports = {
             name: "StockApp",
             filename: "remoteEntry.js",
             exposes: {
-                "./StockGraph": "./src/stock-graph/StockGraph",
+                "./StockGraph": "./src/stock-graph",
             },
             shared: {
                 ...deps,
